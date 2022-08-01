@@ -6,6 +6,8 @@ import {
 	GoogleAuthProvider,
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
+	signOut,
+	onAuthStateChanged,
 } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
@@ -18,9 +20,10 @@ const firebaseConfig = {
 	appId: "1:983266661982:web:01518801c50deac88886cf",
 };
 
-// Initialize Firebase
+// Creates and Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+// Sets the OAuth custom parameters to pass in an OAuth request for popup and redirect sign-in operations.
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
 	prompt: "select_account",
@@ -33,7 +36,6 @@ export const signInWithGoogleRedirect = () =>
 	signInWithRedirect(auth, googleProvider);
 
 //FireStore Data
-
 export const db = getFirestore();
 
 //  Create User Auth DB Document
@@ -69,8 +71,16 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
 	return await createUserWithEmailAndPassword(auth, email, password);
 };
 
+//Sign in with email and password
 export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 	if (!email || !password) return;
 
 	return await signInWithEmailAndPassword(auth, email, password);
 };
+
+//Sign out
+export const signOutUser = async () => await signOut(auth);
+
+//Auth State Change Listerner Observer
+export const onAuthStateChangedListener = (callback) =>
+	onAuthStateChanged(auth, callback);
