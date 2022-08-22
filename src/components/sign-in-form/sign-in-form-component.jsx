@@ -19,14 +19,17 @@ const SignInForm = () => {
 	const [formFields, setFormFields] = useState(defaultFormFields);
 	const { email, password } = formFields;
 
+	//Clear form fields
 	const resetFormFields = () => {
 		setFormFields(defaultFormFields);
 	};
 
+	//Sign In with Google (behide the scenes)
 	const signInWithGoogle = async () => {
 		await signInWithGooglePopup();
 	};
 
+	// Sign with Email and Password
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
@@ -45,6 +48,7 @@ const SignInForm = () => {
 		}
 	};
 
+	// Handle input changes
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 
