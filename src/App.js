@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import Spinner from "./components/spinner/spinner.component";
 
 import { checkUserSession } from "./store/user/user.action";
+import { GlobalStyle } from "./global.styles";
 
 // Dynamic Import
 // React lazy will be only imported when it is required
@@ -28,6 +29,7 @@ const App = () => {
 
 	return (
 		<Suspense fallback={<Spinner />}>
+			<GlobalStyle />
 			<Routes>
 				<Route path="/" element={<Navigation />}>
 					<Route index element={<Home />} />
